@@ -10,6 +10,10 @@ export default function App() {
     const game = {id, title, cover}
     setGames(state => [...state, game])
   })
+
+  const removeGame = (id) =>{
+    setGames(state => state.filter(game => game.id !== id))
+  }
   const handleSubmit = (ev)=>{
     ev.preventDefault()
     addGame({title, cover})
@@ -38,8 +42,15 @@ export default function App() {
         </div>
         <button>Adicionar</button>
       </form>
-      <div className="games">
-
+     <div className="games">
+        {games.map((game) => (
+          <div key={game.id}>
+            <img src={game.cover} alt="Capa do jogo" />
+            <div>
+              <h2>{game.title}</h2>
+              <button onClick={()=> removeGame(game.id)}> Remover</button>
+            </div>
+          </div>))}
       </div>
     </div>
   )
